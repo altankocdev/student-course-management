@@ -3,9 +3,9 @@ package com.altankoc.service.course;
 import com.altankoc.dto.request.CourseRequestDTO;
 import com.altankoc.dto.response.CourseResponseDTO;
 import com.altankoc.entity.Course;
+import com.altankoc.exception.ResourceNotFoundException;
 import com.altankoc.mapper.CourseMapper;
 import com.altankoc.repository.CourseRepository;
-import com.altankoc.service.student.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseResponseDTO getCourseById(Long id) {
         Course course = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ders bulunamadı: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ders bulunamadı: "+id));
 
         return courseMapper.toResponseDto(course);
     }
@@ -50,7 +50,7 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(Long id) {
 
         Course course = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ders bulunamadı: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ders bulunamadı: "+id));
 
         repository.deleteById(id);
 

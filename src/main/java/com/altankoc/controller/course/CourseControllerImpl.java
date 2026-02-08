@@ -3,6 +3,7 @@ package com.altankoc.controller.course;
 import com.altankoc.dto.request.CourseRequestDTO;
 import com.altankoc.dto.response.CourseResponseDTO;
 import com.altankoc.service.course.CourseService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class CourseControllerImpl implements CourseController{
 
     @Override
     @PostMapping
-    public ResponseEntity<CourseResponseDTO> createCourse(@RequestBody CourseRequestDTO dto) {
+    public ResponseEntity<CourseResponseDTO> createCourse(@Valid @RequestBody CourseRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(courseService.createCourse(dto));
     }

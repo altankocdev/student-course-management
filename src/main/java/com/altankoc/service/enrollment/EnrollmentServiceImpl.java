@@ -5,6 +5,7 @@ import com.altankoc.dto.response.EnrollmentResponseDTO;
 import com.altankoc.entity.Course;
 import com.altankoc.entity.Enrollment;
 import com.altankoc.entity.Student;
+import com.altankoc.exception.ResourceNotFoundException;
 import com.altankoc.mapper.EnrollmentMapper;
 import com.altankoc.repository.EnrollmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     @Override
     public EnrollmentResponseDTO getEnrollmentById(Long id) {
         Enrollment enrollment = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ders kaydı bulunamadı: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Ders kaydı bulunamadı: "+id));
 
         return enrollmentMapper.toResponseDto(enrollment);
     }
@@ -52,7 +53,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     public void deleteEnrollment(Long id) {
 
         Enrollment enrollment = repository.findById(id)
-                        .orElseThrow(() -> new RuntimeException("Ders kaydı bulunamadı: "+id));
+                        .orElseThrow(() -> new ResourceNotFoundException("Ders kaydı bulunamadı: "+id));
 
         repository.deleteById(id);
     }

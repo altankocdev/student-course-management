@@ -3,6 +3,7 @@ package com.altankoc.service.student;
 import com.altankoc.dto.request.StudentRequestDTO;
 import com.altankoc.dto.response.StudentResponseDTO;
 import com.altankoc.entity.Student;
+import com.altankoc.exception.ResourceNotFoundException;
 import com.altankoc.mapper.StudentMapper;
 import com.altankoc.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResponseDTO getStudentById(Long id) {
         Student student = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Öğrenci bulunamadı: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Öğrenci bulunamadı: "+id));
         return studentMapper.toResponseDto(student);
     }
 
@@ -47,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(Long id) {
 
         Student student = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Öğrenci bulunamadı: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Öğrenci bulunamadı: "+id));
 
         repository.deleteById(id);
     }

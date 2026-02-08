@@ -5,6 +5,7 @@ import com.altankoc.dto.response.EnrollmentResponseDTO;
 import com.altankoc.entity.Course;
 import com.altankoc.entity.Student;
 import com.altankoc.service.enrollment.EnrollmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,7 @@ public class EnrollmentControllerImpl implements EnrollmentController {
 
     @Override
     @PostMapping
-    public ResponseEntity<EnrollmentResponseDTO> createEnrollment(@RequestBody EnrollmentRequestDTO dto, Student student, Course course) {
+    public ResponseEntity<EnrollmentResponseDTO> createEnrollment(@Valid @RequestBody EnrollmentRequestDTO dto, Student student, Course course) {
         return ResponseEntity.status(HttpStatus.CREATED).body(enrollmentService.createEnrollment(dto,student,course));
     }
 

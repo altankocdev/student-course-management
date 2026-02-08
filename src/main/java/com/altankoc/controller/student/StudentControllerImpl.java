@@ -3,6 +3,7 @@ package com.altankoc.controller.student;
 import com.altankoc.dto.request.StudentRequestDTO;
 import com.altankoc.dto.response.StudentResponseDTO;
 import com.altankoc.service.student.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class StudentControllerImpl implements StudentController{
 
     @Override
     @PostMapping
-    public ResponseEntity<StudentResponseDTO> createStudent(@RequestBody StudentRequestDTO requestDTO) {
+    public ResponseEntity<StudentResponseDTO> createStudent(@Valid @RequestBody StudentRequestDTO requestDTO) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(studentService.createStudent(requestDTO));
     }
